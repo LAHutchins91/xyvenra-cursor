@@ -11,6 +11,11 @@ This repository is not listed in the Cursor Marketplace. A future submission, if
 3. Reload the window and confirm the Xyvenra skill and MCP server are visible.
 4. Ask Cursor to put a simple landing page online. It should create a site, deploy HTML, and return `https://xyvenra.com/sites/{slug}`.
 
+## Policies
+
+- Terms of use: https://xyvenra.com/terms
+- Privacy notice: https://xyvenra.com/privacy
+
 ## Limits
 
 Xyvenra Cloud serves self-contained static HTML only. It is not a Node or Next.js host. Accounts can have at most three Cloud sites. The `env_vars` tool is not available yet.
