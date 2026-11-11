@@ -2,7 +2,7 @@
 
 Cursor plugin that wraps the production MCP at https://xyvenra.com/api/mcp with a bearer platform API key, plus a skill for the publish flow. Plugin files live at the repository root.
 
-This repository is not listed in the Cursor Marketplace. A future submission, if approved, would be made at https://cursor.com/marketplace/publish. It has not been submitted yet.
+This plugin was submitted to the Cursor Marketplace on November 11, 2026, and is pending Cursor's review. It is not listed yet.
 
 ## Local install
 
