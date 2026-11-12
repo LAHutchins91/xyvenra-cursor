@@ -1,10 +1,7 @@
 {
   "mcpServers": {
     "xyvenra": {
-      "url": "https://xyvenra.com/api/mcp",
-      "headers": {
-        "Authorization": "Bearer ${XYVENRA_API_KEY}"
-      }
+      "url": "https://xyvenra.com/api/mcp"
     }
   }
 }

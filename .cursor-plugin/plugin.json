@@ -1,7 +1,7 @@
 {
   "name": "xyvenra",
-  "version": "0.1.0",
-  "description": "Publish static HTML to Xyvenra Cloud and create Data projects through the official MCP.",
+  "version": "0.1.1",
+  "description": "Create Xyvenra Cloud sites, Data projects, Studio apps, and Mobile starters, deploy static HTML, and manage env vars through the official OAuth MCP.",
   "author": {
     "name": "Ouroboros Apps LLC",
     "email": "ouroborosplugins@gmail.com"
@@ -11,23 +11,15 @@
   "license": "MIT",
   "keywords": [
     "xyvenra",
-    "cloud",
-    "static-site",
+    "oauth",
     "mcp",
+    "cloud",
+    "data",
+    "studio",
+    "mobile",
+    "static-site",
+    "env",
     "deploy"
   ],
-  "logo": "assets/logo.svg",
-  "variables": {
-    "type": "object",
-    "properties": {
-      "XYVENRA_API_KEY": {
-        "type": "string",
-        "title": "Xyvenra platform API key",
-        "description": "Mint this at https://xyvenra.com/app/keys. It is shown once and starts with xyv_plat_. Cursor sends it as a bearer token to the Xyvenra MCP."
-      }
-    },
-    "required": [
-      "XYVENRA_API_KEY"
-    ]
-  }
+  "logo": "assets/logo.svg"
 }
