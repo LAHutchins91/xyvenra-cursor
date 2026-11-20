@@ -1,6 +1,6 @@
 # Xyvenra for Cursor
 
-Cursor plugin for the production MCP at https://xyvenra.com/api/mcp. Connect with MCP OAuth 2.1 (GitHub or Google, PKCE). A human-minted platform API key is the fallback when that sign-in is unavailable. Plugin files live at the repository root.
+Cursor plugin for the production MCP at https://xyvenra.com/api/mcp. Connect with MCP OAuth 2.1 (GitHub or Google, PKCE). A human-minted platform API key is the fallback when that sign-in is unavailable. Plugin files live at the repository root. API reference: https://xyvenra.com/docs/api. MCP guide: https://xyvenra.com/docs/mcp. The live server card is https://xyvenra.com/.well-known/mcp/server-card.json. `prompts/list`, `prompts/get`, `resources/list`, and `resources/read` are public and read-only and return no account, project, or secret data.
 
 This plugin was submitted to the Cursor Marketplace on November 11, 2026, and is pending Cursor's review. It is not listed yet.
 
@@ -36,9 +36,9 @@ Replace the placeholder with the key the human minted. Never commit that file wi
 
 ## Tools
 
-The live server documents these tools: `create_project`, `list_projects`, `deploy`, `export`, `env_vars`, `database`, `files`, `eas_dispatch`, `guidance`, and `status`. Call a tool only when the connected server lists it, and follow that tool's schema.
+The live server documents these tools: `create_project`, `list_projects`, `project`, `deploy`, `export`, `env_vars`, `database`, `files`, `eas_dispatch`, `guidance`, and `status`. Call a tool only when the connected server lists it, and follow that tool's schema.
 
-`create_project` can create a Cloud site, a Data project, a Studio app, or a Mobile starter. `product: code` returns an error and points at https://xyvenra.com/app/code. `env_vars` can list, set, update, and delete values. Public values are written into the Cloud page at publish. Private values stay out of that page. Cloud has no server runtime.
+`create_project` can create a Cloud site, a Data project, a Studio app, or a Mobile starter. `product: code` returns an error and points at https://xyvenra.com/app/code. `project` uses `get` to read a Cloud page, Studio source, or a Mobile draft, and `save` to replace Studio source or a Mobile draft. A Mobile `save` requires `expectedUpdatedAt` from the last `get` or `save`. Saving does not publish a Cloud site (`deploy` publishes) or start an EAS build. Cloud, Data, and Code cannot be saved with `project`. Data tables and records use `database`. `env_vars` can list, set, update, and delete values. Public values are written into the Cloud page at publish. Private values stay out of that page. Cloud has no server runtime.
 
 ## Policies
 
@@ -47,4 +47,4 @@ The live server documents these tools: `create_project`, `list_projects`, `deplo
 
 ## Limits
 
-Cloud serves self-contained static HTML (180 KB on the platform deploy path) or a static-site ZIP through a Cloud deploy key (4 MB). It is not a Node or Next.js host. Studio generation, Code editing, and Mobile builds stay in their own apps except for the MCP actions those tools expose: create, list, export, env vars, deploying a saved Studio page, and an explicit Expo workflow dispatch with the customer's own token. Paid Cloud, Data, Mobile, and Studio plans are not offered.
+Cloud serves self-contained static HTML (180 KB on the platform deploy path) or a static-site ZIP through a Cloud deploy key (4 MB). It is not a Node or Next.js host. Studio generation, Code editing, and Mobile builds stay in their own apps except for the MCP actions those tools expose: create, list, read or save Studio source or a Mobile draft, export, env vars, deploying a saved Studio page, and an explicit Expo workflow dispatch with the customer's own token. Saving does not publish a Cloud site or start an EAS build. Paid Cloud, Data, Mobile, and Studio plans are not offered.

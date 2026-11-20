@@ -1,11 +1,11 @@
 ---
 name: publish-with-xyvenra
-description: Publish a static site on Xyvenra Cloud, or use the official Xyvenra MCP for Data, Studio, Mobile, and env vars. Use when the user wants a landing page or HTML site online, a Xyvenra Cloud deploy, project env vars, a Data project, a Studio app, or a Mobile starter.
+description: Publish a static site on Xyvenra Cloud, or use the official Xyvenra MCP for Data, Studio, Mobile, env vars, and reading or saving Studio source or a Mobile draft. Use when the user wants a landing page or HTML site online, a Xyvenra Cloud deploy, project env vars, a Data project, a Studio app, a Mobile starter, or to read or save Studio source or a Mobile draft.
 ---
 
 # Publish with Xyvenra
 
-Use the Xyvenra MCP at https://xyvenra.com/api/mcp. Official registry name: `io.github.LAHutchins91/xyvenra`. Docs: https://xyvenra.com/docs/api.
+Use the Xyvenra MCP at https://xyvenra.com/api/mcp. Official registry name: `io.github.LAHutchins91/xyvenra`. API reference: https://xyvenra.com/docs/api. MCP guide: https://xyvenra.com/docs/mcp. The live server card is https://xyvenra.com/.well-known/mcp/server-card.json. `prompts/list`, `prompts/get`, `resources/list`, and `resources/read` are public and read-only and return no account, project, or secret data.
 
 Connect with MCP OAuth 2.1 first. Production publishes protected-resource metadata at https://xyvenra.com/.well-known/oauth-protected-resource and authorization-server metadata at https://xyvenra.com/.well-known/oauth-authorization-server. Sign-in reuses GitHub or Google with PKCE. This plugin's `mcp.json` is the remote URL only, so Cursor can start that sign-in.
 
@@ -17,8 +17,8 @@ After the server is connected, call only tools it lists and follow each tool's i
 
 - Cloud serves self-contained static HTML (180 KB on this deploy path). A static-site ZIP uses a Cloud deploy key and a 4 MB cap. Cloud is not a Node, Next.js, or general app host, and it has no server runtime.
 - `create_project` with `product: code` returns an error and points at https://xyvenra.com/app/code. Code chat and file editing stay in the app.
-- Studio generation, visual editing, and hosted builds stay in the app. This MCP can create a Studio app, list it, export its source ZIP, and deploy a saved page.
-- Mobile in-app preview and store submission stay outside this MCP. This MCP can create a starter, list it, store env vars, export the Expo ZIP, and dispatch one existing Expo workflow when the human supplies their own token. Creating or exporting a starter does not start a build. Xyvenra does not pay Expo.
+- Studio generation, visual editing, and hosted builds stay in the app. This MCP can create a Studio app, list it, read or save its source, export its source ZIP, and deploy a saved page. Saving source does not publish the page.
+- Mobile in-app preview and store submission stay outside this MCP. This MCP can create a starter, list it, read or save the draft, store env vars, export the Expo ZIP, and dispatch one existing Expo workflow when the human supplies their own token. Creating, saving, or exporting a starter does not start a build. Xyvenra does not pay Expo.
 - Paid Cloud, Data, Mobile, and Studio plans are not offered. Do not claim a checkout or a charge for those products.
 
 ## Cloud publish
@@ -30,10 +30,11 @@ After the server is connected, call only tools it lists and follow each tool's i
 
 ## Tools
 
-The API reference documents these tools. Use one only when `tools/list` includes it.
+The API reference and MCP guide document these tools. Use one only when `tools/list` includes it.
 
 - `create_project` creates a Cloud site (`name` and `slug`), a Data project (`name`), a Studio browser app, or a Mobile Expo starter. It does not create a Code project.
 - `list_projects` lists owned rows for one of `cloud`, `data`, `studio`, `mobile`, or `code`.
+- `project` uses `get` to read a Cloud page, Studio source, or a Mobile draft, and `save` to replace Studio source or a Mobile draft. A Mobile `save` requires `expectedUpdatedAt` from the last `get` or `save`. Saving does not publish a Cloud site (`deploy` publishes) or start an EAS build. Cloud, Data, and Code cannot be saved here. Data tables and records use `database`.
 - `deploy` publishes self-contained HTML to a Cloud site this account owns. Pass `projectId` instead of `html` to send a saved Studio page. ZIP uploads stay on `POST /api/cloud/v1/{siteId}` with a Cloud deploy key.
 - `export` returns a Studio source ZIP, a Mobile Expo ZIP, or a Data JSON snapshot. It does not start an EAS build.
 - `env_vars` lists, sets, updates, or deletes values for the owning account. Pass `product` and, except for the Code workspace, `projectId`. `exposure` is `public` or `secret`. Cloud publish writes public values into the static page. Private values stay out. There is no server runtime.
